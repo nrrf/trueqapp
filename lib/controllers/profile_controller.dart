@@ -1,6 +1,8 @@
 import 'package:get/state_manager.dart';
 import 'package:trueqapp/api/user_api.dart';
 import 'package:trueqapp/models/user.dart';
+import 'package:trueqapp/screens/user/change_password_page.dart';
+import 'package:get/get.dart';
 
 class ProfileController extends GetxController {
   bool _loading = true;
@@ -25,7 +27,20 @@ class ProfileController extends GetxController {
     );
   }
 
-  String obscurePassword(){
+  String obscurePassword() {
     return _user.password.replaceAll(_regex, '●');
+  }
+
+  Future<void> changePassword() async {
+    var result = await Get.to<String>(
+      ChangePasswordPage(),
+      arguments: user.password,
+    );
+    if (result != null) {
+      _user.password = result;
+      update(
+        ['user'],
+      );
+    }
   }
 }

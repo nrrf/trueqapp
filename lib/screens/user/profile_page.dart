@@ -30,10 +30,10 @@ class _ProfilePageState extends State<ProfilePage> {
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Column( 
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text( 
+                  Text(
                     "Mi Informacion: ",
                     style: TextStyle(
                       fontSize: 50,
@@ -79,14 +79,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "password: ${_.obscurePassword()}",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                            Obx(
+                              () => Text(
+                                "password: ${_.obscurePassword()}",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             GestureDetector(
+                              onTap: _.changePassword,
                               child: Transform.translate(
                                 offset: Offset(-20, 0),
                                 child: Text(

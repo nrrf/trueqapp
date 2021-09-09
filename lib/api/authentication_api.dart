@@ -20,6 +20,23 @@ class AuthenticationApi {
       },
       options: Options(contentType: Headers.formUrlEncodedContentType),
       request: Request.post,
+    );
+    return response;
+  }
+
+  Future<dynamic> changePassword({
+    required newPassword,
+  }) async {
+    final controller = Get.find<GlobalController>();
+    final response = await GlobalApi.instance.dioRequest(
+      'user/changepassword',
+      data: {
+        'new_password': newPassword,
+      },
+      options: Options(
+        headers: {"authorization": "Bearer ${controller.token}"},
+      ), 
+      request: Request.put,
     ); 
     return response;
   }
