@@ -12,7 +12,7 @@ class AuthenticationApi {
     required String username,
     required String password,
   }) async {
-    final response = GlobalApi.instance.dioRequest(
+    final response = await GlobalApi.instance.dioRequest(
       "user/login",
       data: {
         'username': username,

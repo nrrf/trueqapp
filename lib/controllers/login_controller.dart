@@ -5,13 +5,16 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 import 'package:trueqapp/api/authentication_api.dart';
-import 'package:trueqapp/screens/user/products_page.dart';
+import 'package:trueqapp/controllers/global_controller.dart';
+import 'package:trueqapp/models/token.dart';
+import 'package:trueqapp/screens/user/profile_page.dart';
+import 'package:trueqapp/screens/user/tab_page.dart';
 
 class LoginController extends GetxController {
   String _username = '';
   String _password = '';
   GlobalKey<FormState> _formKey = GlobalKey();
-  GlobalKey<FormState> get formKey => _formKey;
+  GlobalKey<FormState> get formKey => _formKey; 
   @override
   void onInit() {
     // TODO: implement onInit
@@ -73,14 +76,24 @@ class LoginController extends GetxController {
   Future<void> submit() async {
     final isOk = _formKey.currentState!.validate();
     if (isOk) {
+      final controller = Get.find<GlobalController>();
       final data = await AuthenticationApi.instance
           .login(username: _username, password: _password);
-      if (data is DioError){
-        // :v
+      if (data is int?){ 
+        String message='Error no esperado, intentelo mas tarde'; 
+        if(data == 404){
+          message = "El usuario no existe";
+        }else if(data == 403){
+          message = "El Password no es correcto";
+        }
+        controller.showDialog(data.toString(), message);
       } 
       else{
+        //print(data.data.runtimeType);
+        Token token = Token.fromJson(data.data as Map<String,dynamic>);
+        controller.token = token.accessToken;
         Get.offAll( 
-          ProductsPage(),
+          TabPage(),
         );
       }
     }

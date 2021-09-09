@@ -14,39 +14,49 @@ class GlobalApi {
   );
 
   Future<dynamic?> dioRequest(String path,
-      {dynamic data,
-      Options? options,
-      Request request = Request.get}) async {
-    try {
-      dynamic response;
-      if (request == Request.get) {
+      {dynamic data, Options? options, Request request = Request.get}) async {
+    dynamic response;
+    if (request == Request.get) {
+      try {
         response = await _dio.get(
           path,
           options: options,
         );
-      } else if (request == Request.post) {
+      } on DioError catch (e) {
+        return e.response!.statusCode;
+      }
+    } else if (request == Request.post) {
+      try {
         response = await _dio.post(
           path,
           data: data,
           options: options,
         );
-      } else if (request == Request.put) {
+      } on DioError catch (e) {
+        return e.response!.statusCode;
+      }
+    } else if (request == Request.put) {
+      try {
         response = await _dio.put(
           path,
           data: data,
           options: options,
         );
-      } else {
+      } on DioError catch (e) {
+        return e.response!.statusCode;
+      }
+    } else {
+      try {
         response = await _dio.delete(
           path,
           data: data,
           options: options,
-        ); 
+        );
+      } on DioError catch (e) {
+        return e.response!.statusCode;
       }
-      return response;
-    }on DioError catch (e) {
-      return e;
     }
+    return response;
   }
 }
 
