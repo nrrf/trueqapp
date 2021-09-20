@@ -76,7 +76,7 @@ class RegisterForm extends StatelessWidget {
               ),
               SizedBox(height: 30),
               CustomizedButton(
-                text: "LOGIN",
+                text: "REGISTRAR",
                 textColor: kAccentColor,
                 backgroundColor: kSecondColor,
                 shadowColor: Colors.black45,
@@ -94,7 +94,7 @@ class RegisterForm extends StatelessWidget {
                     CupertinoButton(
                       pressedOpacity: 0.8,
                       child: Text(
-                        "Registrar",
+                        "Ingresar",
                         style: TextStyle(
                           color: kAccentColor,
                         ),
