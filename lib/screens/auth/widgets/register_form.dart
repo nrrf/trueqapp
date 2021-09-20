@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:trueqapp/controllers/login_controller.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:trueqapp/controllers/register_controller.dart';
 import 'package:trueqapp/utilities/constants.dart';
 import 'package:trueqapp/utilities/constomized_button.dart';
 import 'package:trueqapp/utilities/my_text_field.dart';
-import 'package:get/state_manager.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({
-    Key? key,
-  }) : super(key: key);
 
+
+class RegisterForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<LoginController>(
+   
+      return GetBuilder<RegisterController>(
       builder: (_) {
         return Form(
           key: _.formKey,
@@ -31,6 +30,34 @@ class LoginForm extends StatelessWidget {
                 },
                 validator: (text) {
                   return _.validateUsername(text);
+                },
+              ),
+              MyTextField(
+                hintText: "Email",
+                prefixIcon: Icon(
+                  Icons.perm_identity,
+                  color: Colors.white,
+                ),
+                obscureText: false,
+                text: (text) {
+                  _.setEmail(text);
+                },
+                validator: (text) {
+                  return _.validateEmail(text);
+                },
+              ),
+              MyTextField(
+                hintText: "Phone",
+                prefixIcon: Icon(
+                  Icons.perm_identity,
+                  color: Colors.white,
+                ),
+                obscureText: false,
+                text: (text) {
+                  _.setPhone(text);
+                },
+                validator: (text) {
+                  return _.validatePhone(text);
                 },
               ),
               MyTextField(
@@ -62,17 +89,17 @@ class LoginForm extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Todavia no tienes cuenta? ",
+                      "Ya tienes cuenta? ",
                     ),
                     CupertinoButton(
                       pressedOpacity: 0.8,
                       child: Text(
-                        "Registrate",
+                        "Registrar",
                         style: TextStyle(
                           color: kAccentColor,
                         ),
                       ),
-                      onPressed: _.toRegisterScreen,
+                      onPressed: _.toLoginScreen,
                     ),
                   ],
                 ),
@@ -82,5 +109,6 @@ class LoginForm extends StatelessWidget {
         );
       },
     );
+
   }
 }

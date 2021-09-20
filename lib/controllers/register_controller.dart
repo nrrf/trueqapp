@@ -1,39 +1,21 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 import 'package:trueqapp/api/authentication_api.dart';
-import 'package:trueqapp/controllers/global_controller.dart';
 import 'package:trueqapp/models/token.dart';
-import 'package:trueqapp/screens/auth/register_screen.dart';
-import 'package:trueqapp/screens/user/profile_page.dart';
+import 'package:trueqapp/screens/auth/login_screen.dart';
 import 'package:trueqapp/screens/user/tab_page.dart';
+import 'package:email_validator/email_validator.dart';
+import 'global_controller.dart';
 
-class LoginController extends GetxController {
+class RegisterController extends GetxController {
   String _username = '';
   String _password = '';
+  String _email = '';
+  String _phone = '';
+
   GlobalKey<FormState> _formKey = GlobalKey();
   GlobalKey<FormState> get formKey => _formKey;
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-    // ever(
-    //   _username,
-    //   (_) {
-    //     print(_username);
-    //   },
-    // );
-
-    // ever(
-    //   _password,
-    //   (_) {
-    //     print(_password);
-    //   },
-    // );
-  }
 
   void setUsername(String text) {
     _username = text;
@@ -43,43 +25,73 @@ class LoginController extends GetxController {
     _password = text;
   }
 
+  void setEmail(String text) {
+    _email = text;
+  }
+
+  void setPhone(String text) {
+    _phone = text;
+  }
+
   String? validateUsername(String? text) {
     if (text!.trim().length > text.length) {
-      print("espacio vacio");
       return "Hay algun espacio vacio";
     } else if (text.length < 3) {
-      print("el username debe tener al menos 3 digitos");
       return ("el username debe tener al menos 3 digitos");
     }
     return null;
   }
 
-  String? validatePassword(String? text) {
-    String pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regExp = new RegExp(pattern);
-
+  String? validateEmail(String? text) {
+    RegExp regex = new RegExp("r'^[^@]+@[^@]+\.[^@]+");
     if (text!.trim().length > text.length) {
-      print("espacio vacio");
+      return "Hay algun espacio vacio";
+    } else if (text.length < 3) {
+      return ("el username debe tener al menos 3 digitos");
+    } else if (!EmailValidator.validate(text)) {
+      return ("No es un correo valido");
+    }
+    return null;
+  }
+
+  String? validatePhone(String? text) {
+    // regex taked of: https://stackoverflow.com/questions/55552230/flutter-validate-a-phone-number-using-regex/56488868#56488868
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = new RegExp(pattern);
+    if (text!.length == 0) {
+      return 'Please enter mobile number';
+    } else if (!regExp.hasMatch(text)) {
+      return 'Please enter valid mobile number';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? text) {
+    if (text!.trim().length > text.length) {
       return "Hay algun espacio vacio";
     } else if (text.length < 8) {
-      print("el password debe tener al menos 8 digitos");
       return ("el password debe tener al menos 8 digitos");
     }
-    // else if (!regExp.hasMatch(text)) {
-    //   print(
-    //       "El password debe contener: 1 Upper case, 1 Lowe case, 1 Numeric Number, 1 Special Character");
-    //   return ("El password debe contener: 1 Upper case, 1 Lowe case, 1 Numeric Number, 1 Special Character");
-    // }
     return null;
+  }
+
+  void toLoginScreen() {
+    Get.to(
+      LoginScreen(),
+      transition: Transition.cupertino,
+    );
   }
 
   Future<void> submit() async {
     final isOk = _formKey.currentState!.validate();
     if (isOk) {
       final controller = Get.find<GlobalController>();
-      final data = await AuthenticationApi.instance
-          .login(username: _username, password: _password);
+      final data = await AuthenticationApi.instance.register(
+        username: _username,
+        password: _password,
+        email: _email,
+        phone: _phone,
+      );
       if (data is int?) {
         String message = 'Error no esperado, intentelo mas tarde';
         if (data == 404) {
@@ -97,12 +109,5 @@ class LoginController extends GetxController {
         );
       }
     }
-  }
-
-  void toRegisterScreen() {
-    Get.to(
-      RegisterScreen(),
-      transition: Transition.cupertino,
-    );
   }
 }

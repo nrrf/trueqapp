@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:trueqapp/controllers/login_controller.dart';
-import 'package:trueqapp/screens/auth/widgets/login_form.dart';
+import 'package:trueqapp/controllers/register_controller.dart';
 import 'package:trueqapp/screens/auth/widgets/authentication_header.dart';
+import 'package:trueqapp/screens/auth/widgets/register_form.dart';
 
-import 'package:trueqapp/utilities/constants.dart';
-
-
-class LoginScreen extends StatelessWidget {
+class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<LoginController>(
-      init: LoginController(),
+    return GetBuilder<RegisterController>(
+      init: RegisterController(),
       builder: (_) => Scaffold(
         body: SafeArea(
           child: GestureDetector(
@@ -22,8 +18,8 @@ class LoginScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  AuthenticationHeader(),
-                  LoginForm(),
+                  AuthenticationHeader(), 
+                  RegisterForm(),
                 ],
               ),
             ),

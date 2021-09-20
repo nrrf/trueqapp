@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trueqapp/utilities/constants.dart';
 
-class LoginHeader extends StatelessWidget {
-  const LoginHeader({
+class AuthenticationHeader extends StatelessWidget { 
+  const AuthenticationHeader({
     Key? key,
   }) : super(key: key);
 

@@ -24,6 +24,26 @@ class AuthenticationApi {
     return response;
   }
 
+  Future<dynamic> register({
+    required String username,
+    required String password,
+    required String phone,
+    required String email,
+  }) async {
+    final response = await GlobalApi.instance.dioRequest(
+      "user/registration",
+      data: {
+        'iduser': username,
+        'password': password,
+        'phone': phone,
+        'email': email, 
+        'disabled': false,
+      }, 
+      request: Request.post, 
+    ); 
+    return response;
+  }
+
   Future<dynamic> changePassword({
     required newPassword,
   }) async {
@@ -35,9 +55,9 @@ class AuthenticationApi {
       },
       options: Options(
         headers: {"authorization": "Bearer ${controller.token}"},
-      ), 
+      ),
       request: Request.put,
-    ); 
+    );
     return response;
   }
 }
