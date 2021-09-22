@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:trueqapp/controllers/global_controller.dart';
 import 'package:trueqapp/screens/auth/login_screen.dart';
-import 'package:trueqapp/screens/user/tab_page.dart';
+import 'package:trueqapp/tab_page.dart';
 import 'package:trueqapp/utilities/size_config.dart';
 import '../utilities/constants.dart';
 

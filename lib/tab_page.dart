@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:trueqapp/screens/product/my_products.dart';
 import 'package:trueqapp/screens/user/profile_page.dart';
 import 'package:trueqapp/utilities/constants.dart';
 
@@ -33,7 +34,7 @@ class _TabPageState extends State<TabPage> {
       tabBuilder: (context, index) {
         if (index == 0) {
           return CupertinoTabView(
-            builder: (BuildContext context) => MyFirstTab(),
+            builder: (BuildContext context) => MyProducts(),
           );
         } else if (index == 1) {
           return CupertinoTabView(

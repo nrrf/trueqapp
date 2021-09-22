@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:trueqapp/api/authentication_api.dart';
 import 'package:trueqapp/models/token.dart';
 import 'package:trueqapp/screens/auth/login_screen.dart';
-import 'package:trueqapp/screens/user/tab_page.dart';
+import 'package:trueqapp/tab_page.dart';
 import 'package:email_validator/email_validator.dart';
 import 'global_controller.dart';
 

@@ -9,7 +9,7 @@ import 'package:trueqapp/controllers/global_controller.dart';
 import 'package:trueqapp/models/token.dart';
 import 'package:trueqapp/screens/auth/register_screen.dart';
 import 'package:trueqapp/screens/user/profile_page.dart';
-import 'package:trueqapp/screens/user/tab_page.dart';
+import 'package:trueqapp/tab_page.dart';
 
 class LoginController extends GetxController {
   String _username = '';
