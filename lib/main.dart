@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:trueqapp/controllers/global_controller.dart';
 import 'package:trueqapp/screens/auth/login_screen.dart';
+import 'package:trueqapp/styling.dart';
 import 'package:trueqapp/tab_page.dart';
 import 'package:trueqapp/utilities/size_config.dart';
 import '../utilities/constants.dart';
@@ -17,7 +18,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = ThemeData.dark();
     Get.put(GlobalController());
 
     return LayoutBuilder(
@@ -27,9 +27,7 @@ class MyApp extends StatelessWidget {
             SizeConfig().init(constraints, orientation);
             return GetMaterialApp(
               title: 'Flutter Demo',
-              theme: theme.copyWith(
-                scaffoldBackgroundColor: kPrimaryColor,
-              ),
+              theme: AppTheme.darkTheme,
               home: LoginScreen(),
             );
           },

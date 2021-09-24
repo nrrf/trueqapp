@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trueqapp/utilities/constants.dart';
 
-class AuthenticationHeader extends StatelessWidget { 
+class AuthenticationHeader extends StatelessWidget {
   const AuthenticationHeader({
     Key? key,
   }) : super(key: key);
@@ -21,12 +21,7 @@ class AuthenticationHeader extends StatelessWidget {
           offset: Offset(0, -200),
           child: Text(
             "TRUEQAPP",
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 48,
-              fontWeight: FontWeight.w300,
-              color: kAccentColor,
-            ),
+            style: Theme.of(context).textTheme.headline1,
           ),
         ),
         Transform.translate(

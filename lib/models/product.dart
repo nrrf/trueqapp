@@ -14,19 +14,22 @@ class Product {
         required this.name,
         required this.description,
         required this.idUser,
-        required this.idProduct,
+        required this.idProduct, 
+        required this.idCategory,
     });
 
     final String name;
     final String description;
-    final String idUser;
+    final String idUser; 
+    final String idCategory;
     final int idProduct;
 
     factory Product.fromJson(Map<String, dynamic> json) => Product(
         name: json["name"],
         description: json["description"],
-        idUser: json["id_user"],
-        idProduct: json["id_product"],
+        idUser: json["iduser"],
+        idProduct: json["id_product"], 
+        idCategory: json["idcategory"]
     );
 
     Map<String, dynamic> toJson() => {
